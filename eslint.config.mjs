@@ -1,20 +1,21 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import tsParser from "@typescript-eslint/parser";
 import js from "@eslint/js";
-
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname, recommendedConfig: js.configs.recommended });
+import tsParser from "@typescript-eslint/parser";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import importPlugin from "eslint-plugin-import";
+import prettier from "eslint-config-prettier";
 
 export default [
   { ignores: ["dist/**", "watch.js", "node_modules/**"] },
-  ...compat.extends(
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
-    "prettier",
-  ),
+  js.configs.recommended,
+  ...tsPlugin.configs["flat/recommended"],
+  react.configs.flat.recommended,
+  reactHooks.configs.flat.recommended,
+  jsxA11y.flatConfigs.recommended,
+  importPlugin.flatConfigs.recommended,
+  prettier,
   {
     files: ["**/*.{js,jsx,ts,tsx,mjs}"],
     languageOptions: {
